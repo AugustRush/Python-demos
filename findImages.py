@@ -2,17 +2,15 @@
 import urllib
 import urllib2
 
-from BeautifulSoup import BeautifulSoup
+from Scrapy import Scrapy
 
 def getAllImagesDivs():
-	page = urllib2.urlopen("http://image.baidu.com/search/index?tn=baiduimage&ct=201326592&lm=-1&cl=2&ie=gbk&word=%C3%C3%D7%D3&fr=ala&ala=1&alatpl=cover&pos=0#z=0&pn=&ic=0&st=-1&face=0&s=0&lm=-1")
+	request = urllib2.Request(url='https://dribbble.com/shots?list=animated',headers = {'User-Agent':'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6'} )
+	page = urllib2.urlopen(request)
 	html = page.read()
 	print html	
 	soup = BeautifulSoup(html)
-	liRequest = soup.findAll('li',attrs={"class":"imgshow-item"})
+	liRequest = soup.findAll('p',attrs={"class":"follow"})
+	print 'librequest is ',librequest
 	for li in liRequest:
 		imageSrcArray = li.findAll('img')
-		
-	return imageSrcArray	
-
-print getAllImagesDivs()
